@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_expense_tracker/screens/auth/register_screen.dart';
 import '../../services/auth_service.dart';
+import '../home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -74,6 +75,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (user != null){
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Login Successful"))
+                    );
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
                     );
                   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_expense_tracker/screens/expense/add_expense_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,6 +23,16 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Smart Expense Tracker"),
       ),
       body: pages[currentIndex],
+
+      floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context)=> const AddExpenseScreen()));
+          },
+        child: const Icon(Icons.add),
+      ),
+
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: (index){

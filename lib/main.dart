@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:smart_expense_tracker/screens/expense/add_expense_screen.dart';
 import 'package:smart_expense_tracker/screens/home/home_screen.dart';
+
 
 import 'firebase_options.dart';
 import 'screens/auth/login_screen.dart';
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home: const HomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
