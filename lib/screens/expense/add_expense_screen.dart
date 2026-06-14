@@ -23,6 +23,8 @@ class AddExpenseScreen extends StatefulWidget {
 
 class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
+  bool isLoading = false;
+
   final FirestoreService firestoreService = FirestoreService();
 
   final TextEditingController titleController = TextEditingController();
@@ -144,6 +146,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
                 print("Save button clicked");
 
+                setState(() {
+                  isLoading = true;
+                });
+
                 if (widget.docId == null){
                   await firestoreService.addExpense(
                       title: titleController.text.trim(),
@@ -159,12 +165,23 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                       date: selectedDate);
                 }
 
+                setState(() {
+                  isLoading = false;
+                });
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Expense Saved'))
                 );
 
                 Navigator.pop(context);
-              }, child: const Text("Save Expense")),
+              }, child: isLoading ? const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.white,
+                ),
+              ) : const Text("Save Expense"),),
             )
 
           ],

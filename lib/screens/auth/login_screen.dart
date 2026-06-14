@@ -12,6 +12,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
+  bool isLoading = false;
+
   final AuthService authService = AuthService();
 
   final  TextEditingController emailController = TextEditingController();
@@ -67,10 +69,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 child:ElevatedButton(onPressed: () async {
 
+                  setState(() {
+                    isLoading = true;
+                  });
+
                   final user  = await authService.loginUser(
                       email: emailController.text.trim(),
                       password: passwordController.text.trim()
                   );
+
+                  setState(() {
+                    isLoading = false;
+                  });
 
                   if (user != null){
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -84,7 +94,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   }
 
-                }, child: const Text("Login"))),
+                }, child: isLoading ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
+                ): const Text("Login"),),),
 
             const SizedBox(height: 15),
 

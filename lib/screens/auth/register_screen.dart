@@ -9,6 +9,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  bool isLoading = false;
 
   final AuthService authService = AuthService();
 
@@ -64,10 +65,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
               width: double.infinity,
               child: ElevatedButton(onPressed: () async {
 
+                setState(() {
+                  isLoading = true;
+                });
+
                 final user = await authService.registerUser(
                     email: emailController.text.trim(),
+
                     password: passwordController.text.trim()
                 );
+                setState(() {
+                  isLoading = false;
+                });
 
                 if (user != null){
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -75,7 +84,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   );
                 }
 
-              }, child: Text("Register")),
+              }, child: isLoading ? const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.white,
+                ),
+              ) : const Text("Create Account"),),
             ),
 
             const SizedBox(height: 15,),
