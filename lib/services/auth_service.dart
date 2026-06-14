@@ -11,9 +11,10 @@ class AuthService {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(email: email, password: password);
       return userCredential.user;
-    }catch(e){
-      print(e);
-      return null;
+    } on FirebaseAuthException catch(e){
+      throw e.message ?? "Registration Failed";
+    } catch(e){
+      throw "Something went wrong";
     }
   }
 
@@ -21,9 +22,10 @@ class AuthService {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
       return userCredential.user;
-    }catch(e){
-      print(e);
-      return null;
+    } on FirebaseAuthException catch(e){
+      throw e.message ?? "Login failed";
+    } catch(e){
+      throw "Something went wrong";
     }
   }
 
