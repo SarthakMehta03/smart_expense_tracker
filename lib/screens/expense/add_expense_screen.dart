@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import '../../services/firestore_service.dart';
 
 class AddExpenseScreen extends StatefulWidget {
-  const AddExpenseScreen({super.key});
+  final String? docId;
+  final String? title;
+  final double? amount;
+  final String? category;
+  final DateTime? date;
+
+  const AddExpenseScreen({
+    super.key,
+    this.docId,
+    this.title,
+    this.amount,
+    this.category,
+    this.date
+  });
 
   @override
   State<AddExpenseScreen> createState() => _AddExpenseScreenState();
@@ -43,6 +56,18 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     }
 
   }
+  @override
+  void initState(){
+    super.initState();
+
+    if(widget.docId != null){
+      titleController.text = widget.title!;
+      amountController.text = widget.amount.toString();
+      selectedCategory = widget.category!;
+      selectedDate = widget.date!;
+    }
+
+  }
 
   @override
   void dispose() {
@@ -55,7 +80,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Expense"),
+        title: Text(widget.docId == null ? "Add Expense" : "Edit Expense"),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -119,11 +144,20 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
                 print("Save button clicked");
 
-                await firestoreService.addExpense(
-                    title: titleController.text.trim(),
-                    amount: double.parse(amountController.text.trim()),
-                    category: selectedCategory,
-                    date: selectedDate);
+                if (widget.docId == null){
+                  await firestoreService.addExpense(
+                      title: titleController.text.trim(),
+                      amount: double.parse(amountController.text.trim()),
+                      category: selectedCategory,
+                      date: selectedDate);
+                }else{
+                  await firestoreService.updateExpense(
+                      docId: widget.docId!,
+                      title: titleController.text.trim(),
+                      amount: double.parse(amountController.text.trim()),
+                      category: selectedCategory,
+                      date: selectedDate);
+                }
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Expense Saved'))

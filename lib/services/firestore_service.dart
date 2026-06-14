@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -9,7 +10,7 @@ class FirestoreService {
     required double amount,
     required String category,
     required DateTime date,
-}) async {
+  }) async {
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
     await _firestore.collection('users').doc(uid).collection('expenses').add({
@@ -20,4 +21,38 @@ class FirestoreService {
       'createdAt':FieldValue.serverTimestamp(),
     });
   }
+
+  //update expense
+Future<void> updateExpense({
+  required String docId,
+  required String title,
+  required double amount,
+  required String category,
+  required DateTime date,
+}) async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+     await _firestore
+    .collection('users')
+    .doc(uid)
+    .collection('expenses')
+    .doc(docId)
+    .update({
+       'title': title,
+       'amount': amount,
+       'category': category,
+       'date': Timestamp.fromDate(date),
+     });
+
+}
+
+Future<void> deleteExpense(String docId) async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    await _firestore
+    .collection('users')
+    .doc(uid)
+    .collection('expense')
+    .doc(docId)
+    .delete();
+}
 }

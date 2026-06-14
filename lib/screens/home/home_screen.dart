@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_expense_tracker/screens/expense/add_expense_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../expense/expense_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,14 +13,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
-  
-  final List<Widget> pages = [
-    const Center(child:  Text("Home Screen",style: TextStyle(fontSize: 24),)),
-    const Center(child:  Text("Analytics Screen",style: TextStyle(fontSize: 24),)),
-    const Center(child:  Text("Profile",style: TextStyle(fontSize: 24),)),
-  ];
+
+
+
   @override
   Widget build(BuildContext context) {
+    final List<Widget> pages = [
+      const ExpenseListScreen(),
+      const Center(child:  Text("Analytics Screen",style: TextStyle(fontSize: 24),)),
+      const Center(child:  Text("Profile",style: TextStyle(fontSize: 24),)),
+    ];
     return Scaffold(
       appBar: AppBar(
         title: const Text("Smart Expense Tracker"),
