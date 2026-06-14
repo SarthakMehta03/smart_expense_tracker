@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      const ExpenseListScreen(),
+      ExpenseListScreen(),
       const Center(child:  Text("Analytics Screen",style: TextStyle(fontSize: 24),)),
       const Center(child:  Text("Profile",style: TextStyle(fontSize: 24),)),
     ];

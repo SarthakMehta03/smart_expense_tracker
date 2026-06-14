@@ -51,7 +51,7 @@ Future<void> deleteExpense(String docId) async {
     await _firestore
     .collection('users')
     .doc(uid)
-    .collection('expense')
+    .collection('expenses')
     .doc(docId)
     .delete();
 }
