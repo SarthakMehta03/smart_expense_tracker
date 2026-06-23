@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_expense_tracker/screens/home/home_screen.dart';
+import 'package:smart_expense_tracker/widgets/greeting_card.dart';
+import 'package:smart_expense_tracker/widgets/stats_row.dart';
+import 'package:smart_expense_tracker/widgets/transaction_tile.dart';
 
 import 'firebase_options.dart';
 
 import 'providers/theme_provider.dart';
-import 'utils/light_theme.dart';
-import 'utils/dark_theme.dart';
+import 'theme/light_theme.dart';
+import 'theme/dark_theme.dart';
 
 import 'screens/auth/login_screen.dart';
 
@@ -44,7 +48,7 @@ class MyApp extends StatelessWidget {
           ? ThemeMode.dark
           : ThemeMode.light,
 
-      home: const LoginScreen(),
+      home: const HomeScreen(),
     );
   }
 }

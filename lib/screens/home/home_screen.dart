@@ -3,6 +3,7 @@ import 'package:smart_expense_tracker/screens/expense/add_expense_screen.dart';
 import '../expense/expense_list_screen.dart';
 import '../analytics/analytics_screen.dart';
 import '../profile/profile_screen.dart';
+import 'dashboard_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      const ExpenseListScreen(),
+      const DashboardScreen(),
       const AnalyticsScreen(),
       const ProfileScreen(),
     ];
