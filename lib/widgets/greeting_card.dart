@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 
 class GreetingCard extends StatelessWidget {
-  const GreetingCard({super.key});
+  final String userName;
+
+  const GreetingCard({
+    super.key,
+    required this.userName,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+
       padding: const EdgeInsets.all(24),
+
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
+
         gradient: const LinearGradient(
           colors: [
             Color(0xFF6366F1),
@@ -17,19 +25,24 @@ class GreetingCard extends StatelessWidget {
           ],
         ),
       ),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+
+      child: Column(
+        crossAxisAlignment:
+        CrossAxisAlignment.start,
+
         children: [
-          Text(
+          const Text(
             "Good Morning 👋",
             style: TextStyle(
               color: Colors.white70,
             ),
           ),
-          SizedBox(height: 8),
+
+          const SizedBox(height: 8),
+
           Text(
-            "Sarthak",
-            style: TextStyle(
+            userName,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 28,
               fontWeight: FontWeight.bold,

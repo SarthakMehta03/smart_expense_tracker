@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_expense_tracker/screens/home/dashboard_screen.dart';
 import 'package:smart_expense_tracker/screens/home/home_screen.dart';
 import 'package:smart_expense_tracker/widgets/greeting_card.dart';
 import 'package:smart_expense_tracker/widgets/stats_row.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
           ? ThemeMode.dark
           : ThemeMode.light,
 
-      home: const HomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
