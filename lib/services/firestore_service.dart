@@ -55,4 +55,70 @@ Future<void> deleteExpense(String docId) async {
     .doc(docId)
     .delete();
 }
+
+//Income
+
+Future<void> addIncome({
+  required String title,
+  required double amount,
+  required String source,
+  required DateTime date,
+}) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    await _firestore
+    .collection('users')
+    .doc(uid)
+    .collection('income')
+    .add({
+      'title': title,
+      'amount': amount,
+      'source': source,
+      'date': Timestamp.fromDate(date),
+    });
+}
+
+  Future<void> updateIncome({
+    required String docId,
+    required String title,
+    required double amount,
+    required String source,
+    required DateTime date,
+}) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    await _firestore
+    .collection('users')
+    .doc(uid)
+    .collection("income")
+    .doc(docId)
+    .update({
+      'title': title,
+      'amount': amount,
+      'source': source,
+      'date': Timestamp.fromDate(date),
+    });
+  }
+
+  Future<void> deleteIncome(String id) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    await _firestore
+    .collection('users')
+    .doc(uid)
+    .collection('income')
+    .doc(id)
+    .delete();
+  }
+
+  Stream<QuerySnapshot> getIncome() {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    return _firestore
+        .collection('users')
+        .doc(uid)
+        .collection('income')
+        .orderBy('date', descending: true)
+        .snapshots();
+  }
+
 }

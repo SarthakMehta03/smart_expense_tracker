@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StatsRow extends StatelessWidget {
   final double income;
@@ -12,84 +13,71 @@ class StatsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final double savings = income - expense;
+    final savings = income - expense;
 
     return Row(
       children: [
-
         Expanded(
-          child: _buildStatCard(
-            title: "Income",
-            amount: income,
-            icon: Icons.arrow_downward,
-            color: Colors.green,
+          child: statCard(
+            "Income",
+            income,
+            Icons.trending_up,
+            Colors.green,
           ),
         ),
-
-        const SizedBox(width: 10),
-
+        const SizedBox(width: 12),
         Expanded(
-          child: _buildStatCard(
-            title: "Expense",
-            amount: expense,
-            icon: Icons.arrow_upward,
-            color: Colors.red,
+          child: statCard(
+            "Expense",
+            expense,
+            Icons.trending_down,
+            Colors.red,
           ),
         ),
-
-        const SizedBox(width: 10),
-
+        const SizedBox(width: 12),
         Expanded(
-          child: _buildStatCard(
-            title: "Savings",
-            amount: savings,
-            icon: Icons.savings,
-            color: Colors.blue,
+          child: statCard(
+            "Savings",
+            savings,
+            Icons.account_balance_wallet,
+            Colors.blue,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildStatCard({
-    required String title,
-    required double amount,
-    required IconData icon,
-    required Color color,
-  }) {
+  Widget statCard(
+      String title,
+      double value,
+      IconData icon,
+      Color color,
+      ) {
     return Container(
-      padding: const EdgeInsets.all(16),
-
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-
-        borderRadius: BorderRadius.circular(20),
+        color: color.withOpacity(.08),
+        borderRadius: BorderRadius.circular(22),
       ),
-
       child: Column(
         children: [
-          Icon(
-            icon,
-            color: color,
+          CircleAvatar(
+            backgroundColor: color.withOpacity(.15),
+            child: Icon(icon, color: color),
           ),
-
-          const SizedBox(height: 8),
-
+          const SizedBox(height: 10),
           Text(
             title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w600,
             ),
           ),
-
           const SizedBox(height: 6),
-
           Text(
-            "₹${amount.toStringAsFixed(0)}",
-            style: TextStyle(
-              color: color,
+            "₹${value.toStringAsFixed(0)}",
+            style: GoogleFonts.poppins(
               fontWeight: FontWeight.bold,
+              color: color,
             ),
           ),
         ],
